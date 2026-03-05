@@ -2,7 +2,7 @@
 
 A structured map of Ethereum's networking privacy design space: atomic building blocks, their properties, relationships, and how they compose into full protocol proposals.
 
-Live at [raulk.github.io/netprivmap](https://raulk.github.io/netprivmap) (placeholder).
+Live at [kamilsa.github.io/netprivmap](https://kamilsa.github.io/netprivmap).
 
 ## Overview
 
