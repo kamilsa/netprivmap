@@ -1,0 +1,57 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { ATOMS } from '../../data/atoms';
+import { CATEGORIES } from '../../data/categories';
+import { MATURITY_LABELS, MATURITY_COLORS } from '../../data/maturity';
+
+export async function getStaticPaths() {
+  const composites = await getCollection('composites');
+  return composites.map(entry => ({
+    params: { id: entry.data.id.toLowerCase() },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+
+const compositeAtomIds = entry.data.atoms;
+const compositeAtoms = ATOMS.filter(a => compositeAtomIds.includes(a.id));
+---
+
+<Base title={entry.data.name}>
+  <div class="max-w-3xl">
+    <nav class="text-[11px] font-mono mb-6" style="color: var(--c-text-3);">
+      <a href="/" class="hover:underline">home</a> / <a href="/compare" class="hover:underline">composites</a> / {entry.data.id}
+    </nav>
+
+    <header class="mb-10">
+      <h1 class="text-3xl font-bold mb-4">{entry.data.name}</h1>
+      <div class="flex gap-3">
+        <span class="px-2 py-0.5 rounded text-[11px] font-bold uppercase tracking-wider" style={{ background: MATURITY_COLORS[entry.data.maturity] + '15', color: MATURITY_COLORS[entry.data.maturity] }}>
+          {MATURITY_LABELS[entry.data.maturity]}
+        </span>
+      </div>
+    </header>
+
+    <section class="mb-10">
+      <h2 class="text-[11px] font-bold uppercase tracking-widest text-c-text-3 mb-4 pb-2 border-b border-c-border">Included Atoms</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        {compositeAtoms.map(a => (
+          <a href={`/atoms/${a.id.toLowerCase()}`} class="flex items-center gap-3 p-3 bg-white rounded-lg border border-c-border hover:border-c-blue transition-all group shadow-sm">
+            <span class="font-mono font-bold text-[14px]" style={{ color: CATEGORIES[a.cat].color }}>{a.id}</span>
+            <div class="overflow-hidden">
+              <div class="text-[13px] font-semibold text-c-text truncate">{a.name}</div>
+              <div class="text-[10px] text-c-text-3 uppercase tracking-tight">{CATEGORIES[a.cat].name}</div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <div class="prose max-w-none">
+      <Content />
+    </div>
+  </div>
+</Base>

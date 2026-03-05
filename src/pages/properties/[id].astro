@@ -1,0 +1,68 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { ATOMS } from '../../data/atoms';
+import { CATEGORIES } from '../../data/categories';
+
+export async function getStaticPaths() {
+  const properties = await getCollection('properties');
+  return properties.map(entry => ({
+    params: { id: entry.data.id.toLowerCase() },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+
+const propId = entry.data.id;
+const benefitingAtoms = ATOMS.filter(a => a.benefits.includes(propId));
+const hurtingAtoms = ATOMS.filter(a => a.hurts.includes(propId));
+---
+
+<Base title={entry.data.name}>
+  <div class="max-w-3xl">
+    <nav class="text-[11px] font-mono mb-6" style="color: var(--c-text-3);">
+      <a href="/" class="hover:underline">home</a> / <a href="/properties" class="hover:underline">properties</a> / {propId}
+    </nav>
+
+    <header class="mb-10">
+      <h1 class="font-mono font-bold text-4xl text-c-text-3 mb-2">{propId}</h1>
+      <p class="text-xl font-medium">{entry.data.name}</p>
+    </header>
+
+    <div class="prose max-w-none mb-12">
+      <Content />
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 border-t pt-8 border-c-border">
+      {benefitingAtoms.length > 0 && (
+        <div>
+          <h3 class="text-[11px] font-bold uppercase tracking-widest text-c-green mb-4">Benefiting Atoms</h3>
+          <div class="space-y-2">
+            {benefitingAtoms.map(a => (
+              <a href={`/atoms/${a.id.toLowerCase()}`} class="flex items-baseline gap-3 p-2 rounded hover:bg-green-50 transition-colors border border-transparent hover:border-green-100">
+                <span class="font-mono font-bold text-[12px]" style={{ color: CATEGORIES[a.cat].color }}>{a.id}</span>
+                <span class="text-sm font-medium text-c-text">{a.name}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {hurtingAtoms.length > 0 && (
+        <div>
+          <h3 class="text-[11px] font-bold uppercase tracking-widest text-c-red mb-4">Hurting Atoms</h3>
+          <div class="space-y-2">
+            {hurtingAtoms.map(a => (
+              <a href={`/atoms/${a.id.toLowerCase()}`} class="flex items-baseline gap-3 p-2 rounded hover:bg-red-50 transition-colors border border-transparent hover:border-red-100">
+                <span class="font-mono font-bold text-[12px]" style={{ color: CATEGORIES[a.cat].color }}>{a.id}</span>
+                <span class="text-sm font-medium text-c-text">{a.name}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
+</Base>

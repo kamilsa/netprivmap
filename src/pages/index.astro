@@ -1,0 +1,108 @@
+---
+import Base from '../layouts/Base.astro';
+import { ATOMS } from '../data/atoms';
+import { CATEGORIES } from '../data/categories';
+import { EDGES } from '../data/edges';
+import { COMPOSITES } from '../data/composites';
+import { PROPERTIES } from '../data/properties';
+import { MATURITY_LABELS } from '../data/maturity';
+import type { CategoryId } from '../data/categories';
+
+const categoryOrder: CategoryId[] = ['identity', 'routing', 'spam', 'obfuscation'];
+
+const atomsByCategory: Record<string, typeof ATOMS> = {};
+for (const atom of ATOMS) {
+  if (!atomsByCategory[atom.cat]) atomsByCategory[atom.cat] = [];
+  atomsByCategory[atom.cat].push(atom);
+}
+
+function firstSentence(text: string): string {
+  const match = text.match(/^.+?[.!?](?=\s|$)/);
+  return match ? match[0] : text.slice(0, 140) + '…';
+}
+---
+
+<Base wide>
+  <!-- Hero -->
+  <section class="pt-6 pb-12">
+    <div class="flex items-baseline gap-6 mb-4">
+      <h1 class="font-mono font-bold text-[42px] tracking-[-0.04em] leading-none" style="color: var(--c-text);">
+        eth-netpriv-map
+      </h1>
+      <div class="flex gap-8 font-mono text-sm" style="color: var(--c-text-3);">
+        <span><span class="font-semibold text-lg" style="color: var(--c-text);">{ATOMS.length}</span> atoms</span>
+        <span><span class="font-semibold text-lg" style="color: var(--c-text);">{PROPERTIES.length}</span> properties</span>
+        <span><span class="font-semibold text-lg" style="color: var(--c-text);">{COMPOSITES.length}</span> composites</span>
+      </div>
+    </div>
+    <p class="text-[15px] max-w-xl leading-relaxed" style="color: var(--c-text-2);">
+      A structured map of Ethereum's networking privacy design space:
+      atomic building blocks, their properties, relationships, and how they compose into full protocol proposals.
+    </p>
+    <p class="text-[13px] mt-4 font-medium italic" style="color: var(--c-text-3);">
+      "The primary threat vector lies within consensus attestations... severing the IP-to-attestation link without compromising the strict latency bounds required by BFT consensus."
+    </p>
+  </section>
+
+  <!-- Hierarchical atom table -->
+  <section>
+    <table class="w-full">
+      <thead>
+        <tr style="border-bottom: 2px solid var(--c-border);">
+          <th class="text-left px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.06em] w-48" style="color: var(--c-text-3);">Category</th>
+          <th class="text-left px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.06em] w-16" style="color: var(--c-text-3);">ID</th>
+          <th class="text-left px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.06em]" style="color: var(--c-text-3);">Atom</th>
+          <th class="text-left px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.06em] hidden lg:table-cell" style="color: var(--c-text-3);">Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        {categoryOrder.map(catId => {
+          const cat = CATEGORIES[catId];
+          const atoms = atomsByCategory[catId] ?? [];
+          return atoms.map((atom, i) => {
+            return (
+              <tr
+                class="group cursor-pointer hover:bg-white/50 transition-colors"
+                style="border-bottom: 1px solid var(--c-border);"
+                onclick={`window.location='/atoms/${atom.id.toLowerCase()}'`}
+              >
+                {i === 0 ? (
+                  <td
+                    class="px-3 py-3 align-top"
+                    rowspan={atoms.length}
+                    style="border-right: 1px solid var(--c-border);"
+                  >
+                    <div class="flex items-baseline gap-2">
+                      <span class="font-mono text-[14px] font-bold" style={{ color: cat.color }}>{catId[0].toUpperCase()}</span>
+                      <span class="text-[14px] font-medium" style="color: var(--c-text-2);">{cat.name}</span>
+                    </div>
+                  </td>
+                ) : null}
+                <td class="px-3 py-3 align-top">
+                  <span class="font-mono text-[14px] font-semibold" style={{ color: cat.color }}>{atom.id}</span>
+                </td>
+                <td class="px-3 py-3 align-top">
+                  <a
+                    href={`/atoms/${atom.id.toLowerCase()}`}
+                    class="text-[15px] font-medium group-hover:underline underline-offset-2"
+                    style="color: var(--c-text); text-decoration-color: var(--c-border-strong);"
+                  >
+                    {atom.name}
+                  </a>
+                  <div class="text-[13px] mt-0.5" style="color: var(--c-text-2);">
+                    {MATURITY_LABELS[atom.maturity]}
+                  </div>
+                </td>
+                <td class="px-3 py-3 align-top hidden lg:table-cell">
+                  <span class="text-[14px] leading-relaxed" style="color: var(--c-text-2);">
+                    {firstSentence(atom.desc)}
+                  </span>
+                </td>
+              </tr>
+            );
+          });
+        })}
+      </tbody>
+    </table>
+  </section>
+</Base>

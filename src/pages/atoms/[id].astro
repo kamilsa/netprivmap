@@ -1,0 +1,158 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { CATEGORIES } from '../../data/categories';
+import { MATURITY_LABELS, MATURITY_COLORS } from '../../data/maturity';
+import { PROPERTIES } from '../../data/properties';
+import { ATOMS } from '../../data/atoms';
+import { EDGES } from '../../data/edges';
+
+export async function getStaticPaths() {
+  const atoms = await getCollection('atoms');
+  return atoms.map(entry => ({
+    params: { id: entry.data.id.toLowerCase() },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+
+const atomId = entry.data.id;
+const atomData = ATOMS.find(a => a.id === atomId);
+const category = CATEGORIES[entry.data.category];
+
+type Direction = 'outgoing' | 'incoming';
+interface RelationshipRow {
+  target: string;
+  type: string;
+  direction: Direction;
+  note?: string;
+  isProperty: boolean;
+}
+
+const relationships: RelationshipRow[] = [];
+
+// Add Property impacts
+if (atomData) {
+  atomData.benefits.forEach(impact => {
+    const id = typeof impact === 'string' ? impact : impact.id;
+    const note = typeof impact === 'string' ? undefined : impact.note;
+    relationships.push({ target: id, type: 'benefits', direction: 'outgoing', note, isProperty: true });
+  });
+  atomData.hurts.forEach(impact => {
+    const id = typeof impact === 'string' ? impact : impact.id;
+    const note = typeof impact === 'string' ? undefined : impact.note;
+    relationships.push({ target: id, type: 'hurts', direction: 'outgoing', note, isProperty: true });
+  });
+}
+
+// Add Atom edges
+EDGES.forEach(edge => {
+  if (edge.from === atomId) {
+    relationships.push({ target: edge.to, type: edge.type, direction: 'outgoing', note: edge.note, isProperty: false });
+  } else if (edge.to === atomId) {
+    relationships.push({ target: edge.from, type: edge.type, direction: 'incoming', note: edge.note, isProperty: false });
+  }
+});
+
+function getTargetUrl(rel: RelationshipRow) {
+  if (rel.isProperty) return `/properties/${rel.target.toLowerCase()}`;
+  return `/atoms/${rel.target.toLowerCase()}`;
+}
+
+function getTargetName(rel: RelationshipRow) {
+  if (rel.isProperty) {
+    return PROPERTIES.find(p => p.id === rel.target)?.name ?? rel.target;
+  }
+  return ATOMS.find(a => a.id === rel.target)?.name ?? rel.target;
+}
+
+const typeColors: Record<string, string> = {
+  benefits: '#16a34a',
+  hurts: '#dc2626',
+  requires: '#dc2626',
+  enables: '#16a34a',
+  'benefits from': '#2563eb',
+  conflicts: '#ea580c',
+  complements: '#0891b2',
+};
+---
+
+<Base title={entry.data.name}>
+  <div class="max-w-3xl">
+    <nav class="text-[11px] font-mono mb-6" style="color: var(--c-text-3);">
+      <a href="/" class="hover:underline">home</a> / <a href="/atoms" class="hover:underline">atoms</a> / {atomId}
+    </nav>
+
+    <header class="mb-10">
+      <h1 class="font-mono font-bold text-4xl mb-2" style={{ color: category.color }}>{atomId}</h1>
+      <p class="text-xl font-medium mb-4">{entry.data.name}</p>
+      <div class="flex gap-3">
+        <span class="px-2 py-0.5 rounded text-[11px] font-bold uppercase tracking-wider" style={{ background: category.color + '15', color: category.color }}>
+          {category.name}
+        </span>
+        <span class="px-2 py-0.5 rounded text-[11px] font-bold uppercase tracking-wider" style={{ background: MATURITY_COLORS[entry.data.maturity] + '15', color: MATURITY_COLORS[entry.data.maturity] }}>
+          {MATURITY_LABELS[entry.data.maturity]}
+        </span>
+      </div>
+    </header>
+
+    <div class="prose max-w-none mb-12">
+      <Content />
+    </div>
+
+    {relationships.length > 0 && (
+      <section class="border-t pt-8 border-c-border">
+        <h2 class="text-[11px] font-bold uppercase tracking-widest text-c-text-3 mb-6 pb-2 border-b border-c-border">Relationships</h2>
+        <div class="overflow-hidden rounded-lg border border-c-border">
+          <table class="w-full text-sm text-left border-collapse">
+            <thead class="bg-c-surface-dim text-[10px] font-bold uppercase tracking-wider text-c-text-3">
+              <tr>
+                <th class="px-4 py-2 w-8">Dir</th>
+                <th class="px-4 py-2">Target</th>
+                <th class="px-4 py-2">Type</th>
+                <th class="px-4 py-2 hidden md:table-cell">Note</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-c-border bg-white">
+              {relationships.map(rel => (
+                <tr class="hover:bg-c-bg transition-colors">
+                  <td class="px-4 py-3 font-mono font-bold" style={{ color: rel.direction === 'outgoing' ? 'var(--c-green)' : 'var(--c-blue)' }}>
+                    {rel.direction === 'outgoing' ? '→' : '←'}
+                  </td>
+                  <td class="px-4 py-3">
+                    <a href={getTargetUrl(rel)} class="group flex flex-col">
+                      <span class="font-mono font-bold text-xs group-hover:underline" style={{ color: !rel.isProperty ? (ATOMS.find(a => a.id === rel.target) ? CATEGORIES[ATOMS.find(a => a.id === rel.target).cat].color : 'inherit') : 'inherit' }}>
+                        {rel.target}
+                      </span>
+                      <span class="text-[11px] text-c-text-2 group-hover:text-c-text transition-colors">
+                        {getTargetName(rel)}
+                      </span>
+                    </a>
+                  </td>
+                  <td class="px-4 py-3">
+                    <span class="text-[10px] font-bold uppercase px-1.5 py-0.5 rounded" style={{ background: (typeColors[rel.type] || '#71717a') + '15', color: typeColors[rel.type] || '#71717a' }}>
+                      {rel.type}
+                    </span>
+                  </td>
+                  <td class="px-4 py-3 text-[11px] text-c-text-3 hidden md:table-cell italic">
+                    {rel.note || ''}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    )}
+  </div>
+</Base>
+
+<style>
+  /* Hide the automatically generated relationships table from markdown */
+  .prose :global(h2#relationships),
+  .prose :global(h2#relationships + table) {
+    display: none;
+  }
+</style>

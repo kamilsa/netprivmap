@@ -1,0 +1,22 @@
+---
+import Base from '../layouts/Base.astro';
+import MatrixView from '../islands/MatrixView';
+---
+
+<Base title="Property Matrix" description="Atom × property impact matrix" wide>
+  <div class="space-y-4">
+    <nav class="text-[11px] font-mono mb-3" style="color: var(--c-text-3);">
+      <a href="/" class="hover:underline">home</a> / matrix
+    </nav>
+    <h1 class="text-2xl font-semibold tracking-tight">Property Matrix</h1>
+    <p class="text-[14px] mt-1 text-c-text-2">
+      How each atom affects system properties. 
+      <span style="color: #22c55e;">●</span> benefits, 
+      <span style="color: #ef4444;">●</span> hurts.
+    </p>
+    
+    <div class="mt-8">
+      <MatrixView client:load />
+    </div>
+  </div>
+</Base>
