@@ -13,11 +13,11 @@ Maintaining persistent, multiplexed connections to eliminate handshake overhead 
 
 | Target | Type | Note |
 |--------|------|------|
-| [object Object] | benefits | |
-| [object Object] | benefits | |
-| [object Object] | hurts | |
-| [object Object] | hurts | |
-| [object Object] | hurts | |
+| P1 | benefits | Eliminates TLS/QUIC handshake latency from propagation path. |
+| P6 | benefits | Crucial for meeting the 2-second slot time targets. |
+| P2 | hurts | Maintaining many open stateful connections consumes memory. |
+| P7 | hurts | Requires careful stream management and peer discovery tuning. |
+| P3 | hurts | Proactive connection to subnets leaks validator intent to peers. |
 | A2 | enables | Pre-warmed connections are required to meet OHTTP latency targets. |
 
 ## Open questions

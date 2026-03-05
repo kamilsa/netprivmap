@@ -13,9 +13,9 @@ Algorithmically generating dummy traffic to flatten network profiles and disrupt
 
 | Target | Type | Note |
 |--------|------|------|
-| [object Object] | benefits | |
-| [object Object] | benefits | |
-| [object Object] | hurts | |
+| P5 | benefits | Masks attestation timing spikes with dummy packets. |
+| P3 | benefits | Reduces the correlation between traffic volume and signing events. |
+| P2 | hurts | Sustained injection of dummy packets increases baseline bandwidth usage. |
 
 ## Open questions
 

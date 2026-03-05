@@ -13,10 +13,10 @@ A multi-hop routing primitive inspired by Oblivious HTTP that separates identity
 
 | Target | Type | Note |
 |--------|------|------|
-| [object Object] | benefits | |
-| [object Object] | benefits | |
-| [object Object] | hurts | |
-| [object Object] | hurts | |
+| P3 | benefits | Gateway only sees the Relay IP, not the validator IP. |
+| P6 | benefits | Maintains consensus compatibility through low-latency routing. |
+| P1 | hurts | Additional network hop adds 50-100ms latency. |
+| P7 | hurts | Requires new relay infrastructure and connection management. |
 
 ## Open questions
 

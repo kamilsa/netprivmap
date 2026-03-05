@@ -3,6 +3,7 @@ import { ATOMS } from '../data/atoms';
 import { PROPERTIES } from '../data/properties';
 import { CATEGORIES } from '../data/categories';
 import { MATURITY_LABELS } from '../data/maturity';
+import { BASE } from '../lib/base';
 
 export default function MatrixView() {
   const [hoveredProperty, setHoveredProperty] = useState<string | null>(null);
@@ -29,7 +30,7 @@ export default function MatrixView() {
                 }}
                 title={prop.name + ': ' + prop.description}
               >
-                <span style={{ fontFamily: 'monospace', fontSize: '12px', fontWeight: 'bold' }}>{prop.id}</span>
+                <a href={`${BASE}/properties/${prop.id.toLowerCase()}`} style={{ fontFamily: 'monospace', fontSize: '12px', fontWeight: 'bold', color: '#1c1917', textDecoration: 'none' }}>{prop.id}</a>
               </th>
             ))}
           </tr>
@@ -50,7 +51,7 @@ export default function MatrixView() {
                   textAlign: 'left'
                 }}
               >
-                {prop.name}
+                <a href={`${BASE}/properties/${prop.id.toLowerCase()}`} style={{ color: 'inherit', textDecoration: 'none' }}>{prop.name}</a>
               </th>
             ))}
           </tr>
@@ -63,12 +64,12 @@ export default function MatrixView() {
                 <td style={{ position: 'sticky', left: 0, zIndex: 5, background: 'inherit', padding: '8px 12px', borderBottom: '1px solid #e0ddd6', borderRight: '2px solid #e0ddd6' }}>
                   <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
                     <span style={{ fontFamily: 'monospace', fontSize: '11px', fontWeight: 'bold', color: cat.color }}>{atom.id}</span>
-                    <span style={{ fontSize: '13px', fontWeight: '500', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{atom.name}</span>
+                    <a href={`${BASE}/atoms/${atom.id.toLowerCase()}`} style={{ fontSize: '13px', fontWeight: '500', color: '#1c1917', textDecoration: 'none', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{atom.name}</a>
                   </div>
                 </td>
                 {PROPERTIES.map(prop => {
-                  const isBenefit = atom.benefits.includes(prop.id);
-                  const isHurt = atom.hurts.includes(prop.id);
+                  const isBenefit = atom.benefits.some(b => (typeof b === 'string' ? b : b.id) === prop.id);
+                  const isHurt = atom.hurts.some(h => (typeof h === 'string' ? h : h.id) === prop.id);
                   return (
                     <td 
                       key={prop.id}

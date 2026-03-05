@@ -1,6 +1,7 @@
 import { ATOMS } from '../data/atoms';
 import { COMPOSITES } from '../data/composites';
 import { CATEGORIES } from '../data/categories';
+import { BASE } from '../lib/base';
 
 export default function CompareView() {
   return (
@@ -23,7 +24,7 @@ export default function CompareView() {
                   minWidth: '150px'
                 }}
               >
-                <a href={`/composites/${comp.id.toLowerCase()}`} style={{ fontSize: '13px', fontWeight: 'bold', color: '#1c1917', textDecoration: 'none' }}>
+                <a href={`${BASE}/composites/${comp.id.toLowerCase()}`} style={{ fontSize: '13px', fontWeight: 'bold', color: '#1c1917', textDecoration: 'none' }}>
                   {comp.name}
                 </a>
               </th>
@@ -38,7 +39,7 @@ export default function CompareView() {
                 <td style={{ position: 'sticky', left: 0, zIndex: 5, background: 'inherit', padding: '8px 12px', borderBottom: '1px solid #e0ddd6', borderRight: '2px solid #e0ddd6' }}>
                   <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
                     <span style={{ fontFamily: 'monospace', fontSize: '11px', fontWeight: 'bold', color: cat.color }}>{atom.id}</span>
-                    <span style={{ fontSize: '13px', fontWeight: '500' }}>{atom.name}</span>
+                    <a href={`${BASE}/atoms/${atom.id.toLowerCase()}`} style={{ fontSize: '13px', fontWeight: '500', color: '#1c1917', textDecoration: 'none' }}>{atom.name}</a>
                   </div>
                 </td>
                 {COMPOSITES.map(comp => {

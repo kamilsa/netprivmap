@@ -7,6 +7,7 @@ import { COMPOSITES } from '../data/composites';
 import { PROPERTIES } from '../data/properties';
 import { MATURITY_LABELS } from '../data/maturity';
 import type { CategoryId } from '../data/categories';
+import { BASE } from '../lib/base';
 
 const categoryOrder: CategoryId[] = ['identity', 'routing', 'spam', 'obfuscation'];
 
@@ -64,7 +65,7 @@ function firstSentence(text: string): string {
               <tr
                 class="group cursor-pointer hover:bg-white/50 transition-colors"
                 style="border-bottom: 1px solid var(--c-border);"
-                onclick={`window.location='/atoms/${atom.id.toLowerCase()}'`}
+                onclick={`window.location='${BASE}/atoms/${atom.id.toLowerCase()}'`}
               >
                 {i === 0 ? (
                   <td
@@ -83,7 +84,7 @@ function firstSentence(text: string): string {
                 </td>
                 <td class="px-3 py-3 align-top">
                   <a
-                    href={`/atoms/${atom.id.toLowerCase()}`}
+                    href={`${BASE}/atoms/${atom.id.toLowerCase()}`}
                     class="text-[15px] font-medium group-hover:underline underline-offset-2"
                     style="color: var(--c-text); text-decoration-color: var(--c-border-strong);"
                   >

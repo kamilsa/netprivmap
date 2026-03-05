@@ -18,11 +18,24 @@ if (!fs.existsSync(atomDir)) fs.mkdirSync(atomDir, { recursive: true });
 for (const atom of ATOMS) {
   const filename = `${slugify(atom.id)}-${slugify(atom.name)}.md`;
   const outgoing = EDGES.filter(e => e.from === atom.id);
-  const relRows = [
-    ...atom.benefits.map(p => `| ${p} | benefits | |`),
-    ...atom.hurts.map(p => `| ${p} | hurts | |`),
-    ...outgoing.map(e => `| ${e.to} | ${e.type} | ${e.note ?? ''} |`)
-  ];
+  
+  const relRows: string[] = [];
+  
+  atom.benefits.forEach(p => {
+    const id = typeof p === 'string' ? p : p.id;
+    const note = typeof p === 'string' ? '' : p.note ?? '';
+    relRows.push(`| ${id} | benefits | ${note} |`);
+  });
+  
+  atom.hurts.forEach(p => {
+    const id = typeof p === 'string' ? p : p.id;
+    const note = typeof p === 'string' ? '' : p.note ?? '';
+    relRows.push(`| ${id} | hurts | ${note} |`);
+  });
+  
+  outgoing.forEach(e => {
+    relRows.push(`| ${e.to} | ${e.type} | ${e.note ?? ''} |`);
+  });
 
   const relTable = relRows.length > 0
     ? `| Target | Type | Note |\n|--------|------|------|\n${relRows.join('\n')}`

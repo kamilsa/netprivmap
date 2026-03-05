@@ -4,6 +4,7 @@ import Base from '../../layouts/Base.astro';
 import { ATOMS } from '../../data/atoms';
 import { CATEGORIES } from '../../data/categories';
 import { MATURITY_LABELS } from '../../data/maturity';
+import { BASE } from '../../lib/base';
 
 const sortedAtoms = [...ATOMS].sort((a, b) => a.id.localeCompare(b.id));
 ---
@@ -11,7 +12,7 @@ const sortedAtoms = [...ATOMS].sort((a, b) => a.id.localeCompare(b.id));
 <Base title="Atoms" description="All networking privacy design atoms">
   <div class="space-y-6">
     <nav class="text-[11px] font-mono mb-3" style="color: var(--c-text-3);">
-      <a href="/" class="hover:underline">home</a> / atoms
+      <a href={`${BASE}/`} class="hover:underline">home</a> / atoms
     </nav>
     <h1 class="text-2xl font-semibold tracking-tight">Atoms</h1>
     <p class="text-[14px] mt-1 text-c-text-2">Fundamental building blocks of the networking privacy design space.</p>
@@ -28,9 +29,11 @@ const sortedAtoms = [...ATOMS].sort((a, b) => a.id.localeCompare(b.id));
         </thead>
         <tbody class="divide-y divide-c-border bg-white">
           {sortedAtoms.map(atom => (
-            <tr class="hover:bg-c-bg transition-colors cursor-pointer" onclick={`window.location='/atoms/${atom.id.toLowerCase()}'`}>
+            <tr class="hover:bg-c-bg transition-colors cursor-pointer" onclick={`window.location='${BASE}/atoms/${atom.id.toLowerCase()}'`}>
               <td class="px-4 py-4 font-mono font-bold" style={{ color: CATEGORIES[atom.cat].color }}>{atom.id}</td>
-              <td class="px-4 py-4 font-medium text-c-text">{atom.name}</td>
+              <td class="px-4 py-4 font-medium text-c-text">
+                <a href={`${BASE}/atoms/${atom.id.toLowerCase()}`} class="hover:underline">{atom.name}</a>
+              </td>
               <td class="px-4 py-4 text-c-text-2 text-xs">{CATEGORIES[atom.cat].name}</td>
               <td class="px-4 py-4 text-c-text-3 text-xs">{MATURITY_LABELS[atom.maturity]}</td>
             </tr>

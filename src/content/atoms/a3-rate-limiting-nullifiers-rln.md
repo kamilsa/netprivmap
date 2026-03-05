@@ -13,10 +13,10 @@ A ZK gadget for decentralized spam protection that financially slashes rate-limi
 
 | Target | Type | Note |
 |--------|------|------|
-| [object Object] | benefits | |
-| [object Object] | benefits | |
-| [object Object] | benefits | |
-| [object Object] | hurts | |
+| P4 | benefits | Provides Sybil resistance in anonymous overlay networks. |
+| P8 | benefits | Economic deterrence against resource exhaustion DoS. |
+| P2 | benefits | Prevents gossip flooding without requiring node identities. |
+| P7 | hurts | Requires smart contract integration and Merkle tree state tracking. |
 
 ## Open questions
 

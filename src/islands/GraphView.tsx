@@ -4,6 +4,7 @@ import { ATOMS } from '../data/atoms';
 import { EDGES } from '../data/edges';
 import { CATEGORIES } from '../data/categories';
 import { MATURITY_LABELS } from '../data/maturity';
+import { BASE } from '../lib/base';
 import type { Atom } from '../data/atoms';
 import type { EdgeType } from '../data/edges';
 import type { CategoryId } from '../data/categories';
@@ -165,7 +166,7 @@ export default function GraphView() {
           </div>
           <h3 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '8px' }}>{selectedAtom.name}</h3>
           <p style={{ fontSize: '13px', color: '#57534e', lineHeight: '1.5', marginBottom: '16px' }}>{selectedAtom.desc}</p>
-          <a href={`/atoms/${selectedAtom.id.toLowerCase()}`} style={{ fontSize: '13px', fontWeight: 'bold', color: '#2563eb', textDecoration: 'none' }}>View full detail →</a>
+          <a href={`${BASE}/atoms/${selectedAtom.id.toLowerCase()}`} style={{ fontSize: '13px', fontWeight: 'bold', color: '#2563eb', textDecoration: 'none' }}>View full detail →</a>
         </div>
       )}
     </div>

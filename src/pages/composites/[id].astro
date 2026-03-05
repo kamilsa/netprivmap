@@ -4,6 +4,7 @@ import Base from '../../layouts/Base.astro';
 import { ATOMS } from '../../data/atoms';
 import { CATEGORIES } from '../../data/categories';
 import { MATURITY_LABELS, MATURITY_COLORS } from '../../data/maturity';
+import { BASE } from '../../lib/base';
 
 export async function getStaticPaths() {
   const composites = await getCollection('composites');
@@ -23,7 +24,7 @@ const compositeAtoms = ATOMS.filter(a => compositeAtomIds.includes(a.id));
 <Base title={entry.data.name}>
   <div class="max-w-3xl">
     <nav class="text-[11px] font-mono mb-6" style="color: var(--c-text-3);">
-      <a href="/" class="hover:underline">home</a> / <a href="/compare" class="hover:underline">composites</a> / {entry.data.id}
+      <a href={`${BASE}/`} class="hover:underline">home</a> / <a href={`${BASE}/compare`} class="hover:underline">composites</a> / {entry.data.id}
     </nav>
 
     <header class="mb-10">
@@ -39,7 +40,7 @@ const compositeAtoms = ATOMS.filter(a => compositeAtomIds.includes(a.id));
       <h2 class="text-[11px] font-bold uppercase tracking-widest text-c-text-3 mb-4 pb-2 border-b border-c-border">Included Atoms</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
         {compositeAtoms.map(a => (
-          <a href={`/atoms/${a.id.toLowerCase()}`} class="flex items-center gap-3 p-3 bg-white rounded-lg border border-c-border hover:border-c-blue transition-all group shadow-sm">
+          <a href={`${BASE}/atoms/${a.id.toLowerCase()}`} class="flex items-center gap-3 p-3 bg-white rounded-lg border border-c-border hover:border-c-blue transition-all group shadow-sm">
             <span class="font-mono font-bold text-[14px]" style={{ color: CATEGORIES[a.cat].color }}>{a.id}</span>
             <div class="overflow-hidden">
               <div class="text-[13px] font-semibold text-c-text truncate">{a.name}</div>

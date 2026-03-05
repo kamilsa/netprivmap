@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import { ATOMS } from '../../data/atoms';
 import { CATEGORIES } from '../../data/categories';
+import { BASE } from '../../lib/base';
 
 export async function getStaticPaths() {
   const properties = await getCollection('properties');
@@ -16,14 +17,14 @@ const { entry } = Astro.props;
 const { Content } = await entry.render();
 
 const propId = entry.data.id;
-const benefitingAtoms = ATOMS.filter(a => a.benefits.includes(propId));
-const hurtingAtoms = ATOMS.filter(a => a.hurts.includes(propId));
+const benefitingAtoms = ATOMS.filter(a => a.benefits.some(b => (typeof b === 'string' ? b : b.id) === propId));
+const hurtingAtoms = ATOMS.filter(a => a.hurts.some(h => (typeof h === 'string' ? h : h.id) === propId));
 ---
 
 <Base title={entry.data.name}>
   <div class="max-w-3xl">
     <nav class="text-[11px] font-mono mb-6" style="color: var(--c-text-3);">
-      <a href="/" class="hover:underline">home</a> / <a href="/properties" class="hover:underline">properties</a> / {propId}
+      <a href={`${BASE}/`} class="hover:underline">home</a> / <a href={`${BASE}/properties`} class="hover:underline">properties</a> / {propId}
     </nav>
 
     <header class="mb-10">
@@ -41,7 +42,7 @@ const hurtingAtoms = ATOMS.filter(a => a.hurts.includes(propId));
           <h3 class="text-[11px] font-bold uppercase tracking-widest text-c-green mb-4">Benefiting Atoms</h3>
           <div class="space-y-2">
             {benefitingAtoms.map(a => (
-              <a href={`/atoms/${a.id.toLowerCase()}`} class="flex items-baseline gap-3 p-2 rounded hover:bg-green-50 transition-colors border border-transparent hover:border-green-100">
+              <a href={`${BASE}/atoms/${a.id.toLowerCase()}`} class="flex items-baseline gap-3 p-2 rounded hover:bg-green-50 transition-colors border border-transparent hover:border-green-100">
                 <span class="font-mono font-bold text-[12px]" style={{ color: CATEGORIES[a.cat].color }}>{a.id}</span>
                 <span class="text-sm font-medium text-c-text">{a.name}</span>
               </a>
@@ -55,7 +56,7 @@ const hurtingAtoms = ATOMS.filter(a => a.hurts.includes(propId));
           <h3 class="text-[11px] font-bold uppercase tracking-widest text-c-red mb-4">Hurting Atoms</h3>
           <div class="space-y-2">
             {hurtingAtoms.map(a => (
-              <a href={`/atoms/${a.id.toLowerCase()}`} class="flex items-baseline gap-3 p-2 rounded hover:bg-red-50 transition-colors border border-transparent hover:border-red-100">
+              <a href={`${BASE}/atoms/${a.id.toLowerCase()}`} class="flex items-baseline gap-3 p-2 rounded hover:bg-red-50 transition-colors border border-transparent hover:border-red-100">
                 <span class="font-mono font-bold text-[12px]" style={{ color: CATEGORIES[a.cat].color }}>{a.id}</span>
                 <span class="text-sm font-medium text-c-text">{a.name}</span>
               </a>

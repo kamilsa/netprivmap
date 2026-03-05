@@ -6,6 +6,7 @@ import { MATURITY_LABELS, MATURITY_COLORS } from '../../data/maturity';
 import { PROPERTIES } from '../../data/properties';
 import { ATOMS } from '../../data/atoms';
 import { EDGES } from '../../data/edges';
+import { BASE } from '../../lib/base';
 
 export async function getStaticPaths() {
   const atoms = await getCollection('atoms');
@@ -57,8 +58,8 @@ EDGES.forEach(edge => {
 });
 
 function getTargetUrl(rel: RelationshipRow) {
-  if (rel.isProperty) return `/properties/${rel.target.toLowerCase()}`;
-  return `/atoms/${rel.target.toLowerCase()}`;
+  if (rel.isProperty) return `${BASE}/properties/${rel.target.toLowerCase()}`;
+  return `${BASE}/atoms/${rel.target.toLowerCase()}`;
 }
 
 function getTargetName(rel: RelationshipRow) {
@@ -82,7 +83,7 @@ const typeColors: Record<string, string> = {
 <Base title={entry.data.name}>
   <div class="max-w-3xl">
     <nav class="text-[11px] font-mono mb-6" style="color: var(--c-text-3);">
-      <a href="/" class="hover:underline">home</a> / <a href="/atoms" class="hover:underline">atoms</a> / {atomId}
+      <a href={`${BASE}/`} class="hover:underline">home</a> / <a href={`${BASE}/atoms`} class="hover:underline">atoms</a> / {atomId}
     </nav>
 
     <header class="mb-10">

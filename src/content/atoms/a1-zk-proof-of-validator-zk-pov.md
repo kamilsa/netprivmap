@@ -13,11 +13,11 @@ An anonymous credential system that allows nodes to prove they are active beacon
 
 | Target | Type | Note |
 |--------|------|------|
-| [object Object] | benefits | |
-| [object Object] | benefits | |
-| [object Object] | benefits | |
-| [object Object] | hurts | |
-| [object Object] | hurts | |
+| P3 | benefits | Severing the IP-to-identity link via ZK credentials. |
+| P4 | benefits | Prevents Sybil attacks by requiring proof of active stake. |
+| P6 | benefits | Enables high-trust meshes without exposing validator schedules. |
+| P7 | hurts | Requires complex ZK proof generation logic in clients. |
+| P1 | hurts | Proof generation time can approach slot time limits on low-end hardware. |
 | A2 | complements | ZK-PoV secures the endpoints of the OHTTP shuffle. |
 | A3 | benefits from | Anonymous meshes need global rate limiting to prevent DoS. |
 

@@ -13,9 +13,9 @@ An IETF standard for privacy-preserving authorization using blind signatures to 
 
 | Target | Type | Note |
 |--------|------|------|
-| [object Object] | benefits | |
-| [object Object] | benefits | |
-| [object Object] | hurts | |
+| P3 | benefits | Unlinkability between issuer and origin. |
+| P4 | benefits | Proof of authorization without identity disclosure. |
+| P7 | hurts | Standard is complex and requires specialized blind signature crypto. |
 | A1 | complements | Privacy Pass principles inform the ZK-PoV architecture. |
 
 ## Open questions
