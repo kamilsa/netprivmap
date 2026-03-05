@@ -24,4 +24,5 @@ Algorithmically generating dummy traffic to flatten network profiles and disrupt
 
 ## References
 
-- [GPA Resistance through Cover Traffic](https://ethresear.ch/t/gpa-resistance-through-cover-traffic/16723)
+- [Privacy Problems in the P2P Network and What They Tell Us (Topic 20463)](https://ethresear.ch/t/privacy-problems-in-the-p2p-network-and-what-they-tell-us/20463)
+- [Gossipsub’s partial messages extension and cell-level dissemination (Topic 23017)](https://ethresear.ch/t/gossipsub-s-partial-messages-extension-and-cell-level-dissemination/23017)

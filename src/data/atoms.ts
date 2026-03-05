@@ -94,7 +94,8 @@ export const ATOMS: Atom[] = [
     ],
     openQs: ['Finding the optimal ratio between decoy and genuine traffic.', 'Impact on overall network congestion.'],
     refs: [
-      '[GPA Resistance through Cover Traffic](https://ethresear.ch/t/gpa-resistance-through-cover-traffic/16723)'
+      '[Privacy Problems in the P2P Network and What They Tell Us (Topic 20463)](https://ethresear.ch/t/privacy-problems-in-the-p2p-network-and-what-they-tell-us/20463)',
+      '[Gossipsub’s partial messages extension and cell-level dissemination (Topic 23017)](https://ethresear.ch/t/gossipsub-s-partial-messages-extension-and-cell-level-dissemination/23017)'
     ],
   },
   {
