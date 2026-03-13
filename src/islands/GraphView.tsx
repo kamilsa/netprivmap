@@ -19,6 +19,7 @@ const EDGE_STYLES: Record<EdgeType, { color: string; dash: string; arrow: boolea
   'benefits from': { color: '#2563eb', dash: '5,4',  arrow: true },
   'conflicts':     { color: '#ea580c', dash: '5,4',  arrow: true },
   'complements':   { color: '#0891b2', dash: 'none', arrow: false },
+  'evolves':       { color: '#8b5cf6', dash: 'none', arrow: true },
 };
 
 const ALL_EDGE_TYPES = Object.keys(EDGE_STYLES) as EdgeType[];
