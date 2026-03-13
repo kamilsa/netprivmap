@@ -2,20 +2,20 @@
 id: "fast-l1-privacy"
 name: "Fast L1 Privacy Stack"
 maturity: research
-atoms: ["A2","A4","A6"]
+atoms: ["A2","A4","A6","A7"]
 ---
 
 ## Description
 
-A collection of routing and obfuscation techniques designed to support 2-second slot times while maintaining validator anonymity.
+A collection of routing and obfuscation techniques designed to support 2-second slot times while maintaining validator and user anonymity.
 
 ## Key properties
 
-Extreme low latency, GPA resistance, volumetric obfuscation.
+Extreme low latency, GPA resistance, threshold non-collusion, volumetric obfuscation.
 
 ## Limitations
 
-High bandwidth overhead from decoy traffic, complexity of relay management.
+High bandwidth overhead from decoy traffic and secret sharing, complexity of TEE-client management.
 
 ## References
 

@@ -135,4 +135,24 @@ export const ATOMS: Atom[] = [
       '[Packetology: Validator Privacy (jrhea)](https://ethresear.ch/t/packetology-validator-privacy/7547)'
     ],
   },
+  {
+    id: 'A7',
+    name: 'Flashnet Anonymous Broadcast',
+    cat: 'routing',
+    maturity: 'research',
+    desc: 'A threshold-based anonymous broadcast protocol that uses secret sharing across servers and client-side TEEs to achieve ultra-low latency for mempools and block building.',
+    benefits: [
+      { id: 'P1', note: 'Parallel secret sharing and single-hop reconstruction for minimal delay.' },
+      { id: 'P3', note: 'Threshold non-collusion model severing the sender-to-batch link.' },
+      { id: 'P4', note: 'TEE-enforced liveness prevents client jamming without expensive ZKPs.' }
+    ],
+    hurts: [
+      { id: 'P2', note: 'Requires sending multiple secret shares per message, increasing data load.' },
+      { id: 'P7', note: 'Requires managing a set of threshold-honest servers and TEE clients.' }
+    ],
+    openQs: ['Scalability of synchronous rounds with large participant sets.', 'Optimal server threshold for decentralized block building pipelines.'],
+    refs: [
+      '[Network Anonymized Mempools (Flashbots)](https://writings.flashbots.net/network-anonymized-mempools)'
+    ],
+  },
 ];

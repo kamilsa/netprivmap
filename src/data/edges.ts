@@ -17,4 +17,5 @@ export const EDGES: Edge[] = [
   { from: 'A6', to: 'A2', type: 'enables', note: 'Pre-warmed connections are required to meet OHTTP latency targets.' },
   { from: 'A1', to: 'A3', type: 'benefits from', note: 'Anonymous meshes need global rate limiting to prevent DoS.' },
   { from: 'A5', to: 'A1', type: 'complements', note: 'Privacy Pass principles inform the ZK-PoV architecture.' },
+  { from: 'A7', to: 'A2', type: 'complements', note: 'Flashnet provides a threshold-based evolution of the OHTTP relay model.' },
 ];
