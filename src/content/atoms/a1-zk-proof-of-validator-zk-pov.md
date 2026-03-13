@@ -20,6 +20,7 @@ An anonymous credential system that allows nodes to prove they are active beacon
 | P1 | hurts | Proof generation time can approach slot time limits on low-end hardware. |
 | A2 | complements | ZK-PoV secures the endpoints of the OHTTP shuffle. |
 | A3 | benefits from | Anonymous meshes need global rate limiting to prevent DoS. |
+| A8 | complements | ZK credentials can gate access to the mixnet to prevent Sybil flooding. |
 
 ## Open questions
 

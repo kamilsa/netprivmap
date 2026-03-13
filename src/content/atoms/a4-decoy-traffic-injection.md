@@ -16,6 +16,7 @@ Algorithmically generating dummy traffic to flatten network profiles and disrupt
 | P5 | benefits | Masks attestation timing spikes with dummy packets. |
 | P3 | benefits | Reduces the correlation between traffic volume and signing events. |
 | P2 | hurts | Sustained injection of dummy packets increases baseline bandwidth usage. |
+| A8 | complements | Mixnets rely on decoy traffic to prevent volumetric and timing analysis. |
 
 ## Open questions
 

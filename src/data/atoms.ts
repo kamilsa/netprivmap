@@ -155,4 +155,24 @@ export const ATOMS: Atom[] = [
       '[Network Anonymized Mempools (Flashbots)](https://writings.flashbots.net/network-anonymized-mempools)'
     ],
   },
+  {
+    id: 'A8',
+    name: 'Sphinx-based Mixnets',
+    cat: 'routing',
+    maturity: 'research',
+    desc: 'A privacy-preserving routing protocol utilizing the Sphinx packet format to construct mixnets. Targeted by the PSE team for integration into Ethereum\'s node discovery (discv5) and Private RPCs to provide robust broadcast privacy and metadata protection.',
+    benefits: [
+      { id: 'P3', note: 'Cryptographically obfuscates the origin IP of discovery and RPC requests.' },
+      { id: 'P5', note: 'Provides strong resistance against Global Passive Adversaries via packet shuffling and uniform sizing.' }
+    ],
+    hurts: [
+      { id: 'P1', note: 'Multi-hop routing and intentional mixing delays inherently increase network latency.' },
+      { id: 'P2', note: 'Cryptographic packet framing and mandatory cover traffic significantly increase bandwidth overhead.' },
+      { id: 'P7', note: 'Requires profound changes to the libp2p stack and node discovery mechanisms.' }
+    ],
+    openQs: ['Can mixnet latency be tuned to support real-time attestation propagation, or is it strictly for less time-sensitive tasks like RPCs and discovery?', 'Incentivization and deployment of independent mix node operators.'],
+    refs: [
+      '[PSE Roadmap: 2025 and Beyond](https://pse.dev/blog/pse-roadmap-2025)'
+    ],
+  },
 ];
