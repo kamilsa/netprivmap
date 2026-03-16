@@ -19,6 +19,7 @@ A threshold-based anonymous broadcast protocol that uses secret sharing across s
 | P2 | hurts | Requires sending multiple secret shares per message, increasing data load. |
 | P7 | hurts | Requires managing a set of threshold-honest servers and TEE clients. |
 | A2 | complements | Flashnet provides a threshold-based evolution of the OHTTP relay model. |
+| A10 | enables | Flashnet provides the anonymous communication layer for decentralized builders. |
 
 ## Open questions
 

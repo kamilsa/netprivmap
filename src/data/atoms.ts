@@ -175,4 +175,60 @@ export const ATOMS: Atom[] = [
       '[PSE Roadmap: 2025 and Beyond](https://pse.dev/blog/pse-roadmap-2025)'
     ],
   },
+  {
+    id: 'A9',
+    name: 'ZIPNet Anonymous Broadcast',
+    cat: 'routing',
+    maturity: 'research',
+    desc: 'An anonymous broadcast channel (ABC) designed to scale to hundreds of anytrust servers by minimizing computational costs and reducing server bandwidth through outsourced aggregation to untrusted infrastructure. It uses Trusted Execution Environments (TEEs) to ensure integrity and minimize overhead.',
+    benefits: [
+      { id: 'P3', note: 'Anytrust model hides sender identity as long as one server is honest.' },
+      { id: 'P2', note: 'Lower bandwidth overhead than traditional ABCs by outsourcing aggregation.' }
+    ],
+    hurts: [
+      { id: 'P7', note: 'Requires specialized TEE hardware (e.g., SGX) and managing anytrust server deployments.' }
+    ],
+    openQs: ['Vulnerability to hardware side-channel attacks on TEEs.', 'Liveness in scenarios where servers go offline.'],
+    refs: [
+      '[ZIPNet: Low-bandwidth anonymous broadcast from (dis)Trusted Execution Environments](https://eprint.iacr.org/2024/1227)'
+    ],
+  },
+  {
+    id: 'A10',
+    name: 'TEE-based BuilderNet',
+    cat: 'identity',
+    maturity: 'development',
+    desc: 'A decentralized block-building network utilizing Trusted Execution Environments (TEEs) to process and encrypt order flow. It prevents any single entity from acting as a gatekeeper or "landlord" for transaction flow by ensuring that even node operators cannot see the content of the transactions they are building.',
+    benefits: [
+      { id: 'P3', note: 'Blind building severs the link between the builder and the transaction content/origin.' },
+      { id: 'P4', note: 'TEE remote attestation provides a strong root of trust for permissionless joining.' }
+    ],
+    hurts: [
+      { id: 'P7', note: 'Requires managing a complex network of multi-operator TEE instances (e.g., Beaverbuild, Nethermind).' },
+      { id: 'P1', note: 'TEE-based computation and attestation checks add overhead to the block building critical path.' }
+    ],
+    openQs: ['Scalability of blind building with hundreds of simultaneous builders.', 'Resistance to TEE-level side-channel attacks in a multi-tenant builder environment.'],
+    refs: [
+      '[decentralized building: wat do? (Flashbots)](https://writings.flashbots.net/decentralized-building-wat-do/)'
+    ],
+  },
+  {
+    id: 'A11',
+    name: 'Signal-boost (Co-building)',
+    cat: 'routing',
+    maturity: 'research',
+    desc: 'A protocol for "secure co-location" that enables untrusted parties to build specific parts of a block collaboratively. It uses sandboxed environments (TEEs) to allow multiple actors to contribute to block production without any single party having total control over the final block structure.',
+    benefits: [
+      { id: 'P3', note: 'Modular building prevents any single entity from having full metadata visibility.' },
+      { id: 'P6', note: 'Enables parallelized block construction across different domains and geographies.' }
+    ],
+    hurts: [
+      { id: 'P7', note: 'High complexity in coordinating and proving valid co-building steps.' },
+      { id: 'P1', note: 'Increased communication overhead between co-building participants.' }
+    ],
+    openQs: ['Optimal allocation of block space across untrusted co-builders.', 'Fairness and efficiency of co-building auctions.'],
+    refs: [
+      '[decentralized building: wat do? (Flashbots)](https://writings.flashbots.net/decentralized-building-wat-do/)'
+    ],
+  },
 ];

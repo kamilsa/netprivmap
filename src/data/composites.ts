@@ -30,4 +30,14 @@ export const COMPOSITES: Composite[] = [
     limitations: 'High bandwidth overhead from decoy traffic and secret sharing, complexity of TEE-client management.',
     refs: ['[Possible futures of the Ethereum protocol, part 2: The Surge](https://vitalik.eth.limo/general/2024/10/17/futures2.html)'],
   },
+  {
+    id: 'collaborative-building',
+    name: 'Collaborative Decentralized Building',
+    maturity: 'research',
+    atoms: ['A7', 'A10', 'A11'],
+    desc: 'A modular block-building pipeline that leverages TEEs and anonymous broadcast to allow multiple actors to collaboratively produce blocks without centralized gateways.',
+    keyProps: 'Censorship resistance, metadata privacy, permissionless building, cross-domain MEV handling.',
+    limitations: 'Reliance on hardware trust roots (TEEs), high coordination complexity between co-builders.',
+    refs: ['[decentralized building: wat do? (Flashbots)](https://writings.flashbots.net/decentralized-building-wat-do/)'],
+  },
 ];
