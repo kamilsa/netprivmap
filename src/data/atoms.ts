@@ -231,4 +231,22 @@ export const ATOMS: Atom[] = [
       '[decentralized building: wat do? (Flashbots)](https://writings.flashbots.net/decentralized-building-wat-do/)'
     ],
   },
+  {
+    id: 'A12',
+    name: 'Dandelion++',
+    cat: 'routing',
+    maturity: 'implementation',
+    desc: 'A lightweight P2P anonymity protocol designed to obfuscate the source IP of transactions. It splits propagation into two phases: a "stem" phase, where the message is passed along a single randomized path, and a "fluff" phase, where it is broadcast to the rest of the network via standard diffusion.',
+    benefits: [
+      { id: 'P3', note: 'Breaking symmetry in propagation patterns makes it difficult for spy nodes to triangulate the source IP.' },
+      { id: 'P2', note: 'Extremely low bandwidth overhead compared to mixnets or decoy traffic.' }
+    ],
+    hurts: [
+      { id: 'P1', note: 'The "stem" phase adds deterministic hops, increasing the time before a message reaches the whole network.' }
+    ],
+    openQs: ['Compatibility with strict 12s/2s Ethereum slot times for attestations.', 'Effectiveness against adversaries who can observe large portions of the P2P topology.'],
+    refs: [
+      '[Dandelion++: Lightweight Cryptocurrency Networking with Formal Anonymity Guarantees](https://arxiv.org/abs/1805.11060)'
+    ],
+  },
 ];

@@ -23,4 +23,5 @@ export const EDGES: Edge[] = [
   { from: 'A9', to: 'A7', type: 'evolves', note: 'Flashnet iterates on ZIPNet to improve liveness under server failure.' },
   { from: 'A7', to: 'A10', type: 'enables', note: 'Flashnet provides the anonymous communication layer for decentralized builders.' },
   { from: 'A10', to: 'A11', type: 'enables', note: 'BuilderNet provides the infrastructure for multi-party modular co-building.' },
+  { from: 'A12', to: 'A8', type: 'complements', note: 'Dandelion++ provides a lightweight alternative to mixnets for privacy-preserving broadcast.' },
 ];
