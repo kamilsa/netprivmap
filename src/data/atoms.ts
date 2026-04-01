@@ -249,4 +249,23 @@ export const ATOMS: Atom[] = [
       '[Dandelion++: Lightweight Cryptocurrency Networking with Formal Anonymity Guarantees](https://arxiv.org/abs/1805.11060)'
     ],
   },
+  {
+    id: 'A13',
+    name: 'Wonderboom Signature Aggregation',
+    cat: 'routing',
+    maturity: 'research',
+    desc: 'A high-performance aggregation protocol that utilizes deep aggregation trees and Proposer-Validator Separation (PVS). It mandated physical isolation of proposer processes to obfuscate their gossip footprint, while using direct P2P channels for million-scale signature aggregation.',
+    benefits: [
+      { id: 'P3', note: 'PVS severs the link between the high-value proposer role and high-frequency voting IP.' },
+      { id: 'P9', note: 'Largest + Random forwarding rule provides mathematical guarantees against deterministic censorship.' },
+      { id: 'P1', note: 'Enables two-slot finality by solving the million-scale aggregation bottleneck.' }
+    ],
+    hurts: [
+      { id: 'P7', note: 'Requires significant structural changes to the validator client and network topology.' }
+    ],
+    openQs: ['Incentivization for committee representatives to remain online and honest.', 'Impact of deep tree latency on tight aggregation windows.'],
+    refs: [
+      '[Wonderboom: Efficient, and Censorship-Resilient Signature Aggregation for Million Scale Consensus](https://arxiv.org/abs/2602.06655)'
+    ],
+  },
 ];

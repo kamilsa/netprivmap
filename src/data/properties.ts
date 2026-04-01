@@ -13,4 +13,5 @@ export const PROPERTIES: Property[] = [
   { id: 'P6', name: 'BFT Compatibility', description: 'How well the mechanism fits within Ethereum\'s consensus slot rhythms.' },
   { id: 'P7', name: 'Implementation Complexity', description: 'Amount of new networking machinery and spec changes required.' },
   { id: 'P8', name: 'Economic Deterrence', description: 'Using financial slashing to disincentivize malicious behavior.' },
+  { id: 'P9', name: 'Censorship Resilience', description: 'The mathematical guarantee against the deterministic exclusion of honest votes or messages by a subset of malicious nodes.' },
 ];

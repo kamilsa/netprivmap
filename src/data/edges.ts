@@ -24,4 +24,5 @@ export const EDGES: Edge[] = [
   { from: 'A7', to: 'A10', type: 'enables', note: 'Flashnet provides the anonymous communication layer for decentralized builders.' },
   { from: 'A10', to: 'A11', type: 'enables', note: 'BuilderNet provides the infrastructure for multi-party modular co-building.' },
   { from: 'A12', to: 'A8', type: 'complements', note: 'Dandelion++ provides a lightweight alternative to mixnets for privacy-preserving broadcast.' },
+  { from: 'A13', to: 'A12', type: 'alternative', note: 'Wonderboom uses PVS and direct P2P to bypass the latency of gossip-based anonymity protocols like Dandelion++ for voting.' },
 ];
