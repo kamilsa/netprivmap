@@ -36,7 +36,8 @@ export const ATOMS: Atom[] = [
     ],
     openQs: ['Computational overhead of proof generation on consumer hardware.', 'Trusted setup requirements for specific SNARK schemes (e.g. Caulk+).'],
     refs: [
-      '[Proof of Validator: A simple anonymous credential scheme](https://ethresear.ch/t/proof-of-validator-a-simple-anonymous-credential-scheme-for-ethereums-dht/16454)'
+      '[Proof of Validator: A simple anonymous credential scheme](https://ethresear.ch/t/proof-of-validator-a-simple-anonymous-credential-scheme-for-ethereums-dht/16454)',
+      '[Anonymity, Unlinkability, Undetectability, and Unobservability: A Proposal for Terminology (v0.34)](https://www.maroki.de/pub/verschiedenes/2010_Anon_Terminology_v0.34.pdf)'
     ],
   },
   {
@@ -56,7 +57,8 @@ export const ATOMS: Atom[] = [
     openQs: ['Managing pre-warmed connections at scale.', 'Geographic distribution of reliable relay nodes.'],
     refs: [
       '[RFC 9458: Oblivious HTTP](https://datatracker.ietf.org/doc/rfc9458/)',
-      '[Packetology: Validator Privacy (jrhea)](https://ethresear.ch/t/packetology-validator-privacy/7547)'
+      '[Packetology: Validator Privacy (jrhea)](https://ethresear.ch/t/packetology-validator-privacy/7547)',
+      '[Anonymity, Unlinkability, Undetectability, and Unobservability: A Proposal for Terminology (v0.34)](https://www.maroki.de/pub/verschiedenes/2010_Anon_Terminology_v0.34.pdf)'
     ],
   },
   {
@@ -95,7 +97,8 @@ export const ATOMS: Atom[] = [
     openQs: ['Finding the optimal ratio between decoy and genuine traffic.', 'Impact on overall network congestion.'],
     refs: [
       '[Privacy Problems in the P2P Network and What They Tell Us (Topic 20463)](https://ethresear.ch/t/privacy-problems-in-the-p2p-network-and-what-they-tell-us/20463)',
-      '[Gossipsub’s partial messages extension and cell-level dissemination (Topic 23017)](https://ethresear.ch/t/gossipsub-s-partial-messages-extension-and-cell-level-dissemination/23017)'
+      '[Gossipsub’s partial messages extension and cell-level dissemination (Topic 23017)](https://ethresear.ch/t/gossipsub-s-partial-messages-extension-and-cell-level-dissemination/23017)',
+      '[Anonymity, Unlinkability, Undetectability, and Unobservability: A Proposal for Terminology (v0.34)](https://www.maroki.de/pub/verschiedenes/2010_Anon_Terminology_v0.34.pdf)'
     ],
   },
   {
@@ -172,7 +175,8 @@ export const ATOMS: Atom[] = [
     ],
     openQs: ['Can mixnet latency be tuned to support real-time attestation propagation, or is it strictly for less time-sensitive tasks like RPCs and discovery?', 'Incentivization and deployment of independent mix node operators.'],
     refs: [
-      '[PSE Roadmap: 2025 and Beyond](https://pse.dev/blog/pse-roadmap-2025)'
+      '[PSE Roadmap: 2025 and Beyond](https://pse.dev/blog/pse-roadmap-2025)',
+      '[Anonymity, Unlinkability, Undetectability, and Unobservability: A Proposal for Terminology (v0.34)](https://www.maroki.de/pub/verschiedenes/2010_Anon_Terminology_v0.34.pdf)'
     ],
   },
   {
@@ -266,6 +270,136 @@ export const ATOMS: Atom[] = [
     openQs: ['Incentivization for committee representatives to remain online and honest.', 'Impact of deep tree latency on tight aggregation windows.'],
     refs: [
       '[Wonderboom: Efficient, and Censorship-Resilient Signature Aggregation for Million Scale Consensus](https://arxiv.org/abs/2602.06655)'
+    ],
+  },
+  {
+    id: 'A14',
+    name: 'LLARP / Lokinet',
+    cat: 'routing',
+    maturity: 'implementation',
+    desc: 'A decentralized, Layer 3 onion routing protocol (Low-Latency Anonymous Routing Protocol) that uses packet-switching and a blockchain-based directory (Oxen) for Sybil resistance. It enables low-latency, anonymous IP-based communication for all network traffic (TCP, UDP, ICMP), protecting validator discovery and consensus messages.',
+    benefits: [
+      { id: 'P3', note: 'Provides onion-routing anonymity for any network-layer traffic.' },
+      { id: 'P4', note: 'Financial staking of Service Nodes provides robust Sybil resistance.' },
+      { id: 'P1', note: 'Packet-switching architecture minimizes circuit-setup latency for real-time traffic.' }
+    ],
+    hurts: [
+      { id: 'P1', note: 'Multi-hop routing path adds 100-300ms of deterministic latency.' },
+      { id: 'P2', note: 'Layer 3 onion headers and cryptographic encapsulation increase bandwidth overhead.' },
+      { id: 'P7', note: 'Requires running an external Lokinet daemon or deep integration into the p2p stack.' }
+    ],
+    openQs: ['Scalability of blockchain-based directory for high-churn P2P networks.', 'Optimal path length for Ethereum slot time compliance.'],
+    refs: [
+      '[Lokinet: A Decentralized, Layer 3 Onion Router](https://lokinet.org/)',
+      '[Quantifying the Privacy Guarantees of Validator Privacy Mechanisms (ethresear.ch)](https://ethresear.ch/t/quantifying-the-privacy-guarantees-of-validator-privacy-mechanisms/15611)',
+      '[Oxen Network (formerly Loki) Whitepaper](https://oxen.io/whitepaper)'
+    ],
+  },
+  {
+    id: 'A15',
+    name: 'ZK-Attestations (with RLN)',
+    cat: 'identity',
+    maturity: 'research',
+    desc: 'Replacing raw validator signatures in attestations with succinct ZK proofs of signature possession. It uses Rate-Limiting Nullifiers (RLN) to prevent DoS/spam via equivocation while maintaining full validator-set anonymity.',
+    benefits: [
+      { id: 'P3', note: 'Full validator-set anonymity by hiding the specific signer identity.' },
+      { id: 'P4', note: 'RLN bounds rate to 1 attestation per slot, preventing equivocation spam.' }
+    ],
+    hurts: [
+      { id: 'P1', note: 'Proof generation and recursive aggregation add significant latency to the consensus path.' },
+      { id: 'P2', note: 'ZK proofs (e.g., plonky3) are larger than standard signatures, increasing bandwidth load.' },
+      { id: 'P7', note: 'Requires complex circuit design for signature verification and Merkle membership.' }
+    ],
+    openQs: ['Reward distribution mechanism for hidden identities.', 'Recursive proof aggregation performance on consumer hardware.'],
+    refs: [
+      '[Anonymous Rate-Limited Credentials (draft-irtf-cfrg-arc)](https://datatracker.ietf.org/doc/draft-irtf-cfrg-arc/)'
+    ],
+  },
+  {
+    id: 'A16',
+    name: 'Walking Onions',
+    cat: 'routing',
+    maturity: 'research',
+    desc: 'A scaling mechanism for onion routing networks that eliminates the need for clients to download a complete directory of all relays. Clients retrieve relay descriptors on-demand during circuit extension using certified indices.',
+    benefits: [
+      { id: 'P2', note: 'Drastically reduces client directory download bandwidth, scaling linearly with network growth.' },
+      { id: 'P1', note: 'Eliminates front-loaded directory download delays for new clients.' }
+    ],
+    hurts: [
+      { id: 'P7', note: 'Requires an Efficient Network Directory with Individually Verifiable Entries (ENDIVE).' }
+    ],
+    openQs: ['Managing feature parity with Tor\'s current relay selection logic.', 'Security of on-demand descriptor retrieval against statistical attacks.'],
+    refs: [
+      '[Walking Onions: Scaling and Saving Bandwidth (Tor Proposal 300)](https://gitlab.torproject.org/tpo/core/torspec/-/blob/main/proposals/300-walking-onions.txt)'
+    ],
+  },
+  {
+    id: 'A17',
+    name: 'Whisk (SSLE Protocol)',
+    cat: 'identity',
+    maturity: 'research',
+    desc: 'A privacy-preserving Single Secret Leader Election (SSLE) protocol for Ethereum that uses shuffles and zero-knowledge proofs to hide the identity of the next block proposer until they actually publish a block.',
+    benefits: [
+      { id: 'P3', note: 'Prevents targeted DoS attacks on upcoming proposers by hiding their IP/identity.' },
+      { id: 'P4', note: 'Maintains Sybil resistance via the existing validator deposit mechanism.' }
+    ],
+    hurts: [
+      { id: 'P7', note: 'Requires complex on-chain shuffles and ZK proof verification.' }
+    ],
+    openQs: ['Integration with the existing beacon chain fork choice and block production pipeline.'],
+    refs: [
+      '[Whisk: A practical approach to Proposer Anonymity](https://ethresear.ch/t/whisk-a-practical-approach-to-proposer-anonymity/11863)'
+    ],
+  },
+  {
+    id: 'A18',
+    name: 'Single Secret Leader Election (SSLE)',
+    cat: 'identity',
+    maturity: 'research',
+    desc: 'A cryptographic primitive that ensures only the elected leader knows they are the leader until they reveal themselves by producing a block. This prevents adversaries from identifying and attacking the leader before the block is broadcast.',
+    benefits: [
+      { id: 'P3', note: 'Critical for proposer anonymity and preventing adaptive DoS attacks.' }
+    ],
+    hurts: [
+      { id: 'P7', note: 'High implementation complexity depending on the underlying cryptographic primitives (e.g., DDH, shuffles).' }
+    ],
+    openQs: ['Trade-offs between different SSLE constructions (e.g., Whisk vs. secret-sharing based).'],
+    refs: [
+      '[Single Secret Leader Election (Boneh et al.)](https://eprint.iacr.org/2020/025)'
+    ],
+  },
+  {
+    id: 'A19',
+    name: 'Karmic Onion Routing',
+    cat: 'routing',
+    maturity: 'research',
+    desc: 'An incentivized onion routing mechanism that rewards relays for honest behavior and punishes malicious or unreliable nodes using a reputation or "karma" system, often integrated with financial staking.',
+    benefits: [
+      { id: 'P4', note: 'Provides additional resistance against malicious relay nodes in an onion network.' }
+    ],
+    hurts: [
+      { id: 'P7', note: 'Complexity in designing a tamper-proof and private reputation system.' }
+    ],
+    openQs: ['Privacy-preserving reputation updates without revealing circuit paths.'],
+    refs: [
+      '[Karmic: A Reputation System for Onion Routing](https://arxiv.org/abs/2105.10173)'
+    ],
+  },
+  {
+    id: 'A20',
+    name: 'Onion Routing Flow Control (SENDME)',
+    cat: 'routing',
+    maturity: 'implementation',
+    desc: 'An end-to-end flow control mechanism (like Tor\'s SENDME cells) that prevents senders from overwhelming the buffers of relays or the final recipient in a multi-hop onion circuit. It operates independently of the underlying TCP/UDP flow control.',
+    benefits: [
+      { id: 'P1', note: 'Maintains predictable latency by preventing bufferbloat at relay nodes.' }
+    ],
+    hurts: [
+      { id: 'P2', note: 'Additional control cells increase bandwidth overhead.' }
+    ],
+    openQs: ['Optimizing window sizes for the specific latency requirements of Ethereum attestations.'],
+    refs: [
+      '[Tor Protocol Specification (Section 6.2: Flow Control)](https://gitlab.torproject.org/tpo/core/torspec/-/blob/main/tor-spec.txt)'
     ],
   },
 ];

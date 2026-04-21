@@ -25,4 +25,12 @@ export const EDGES: Edge[] = [
   { from: 'A10', to: 'A11', type: 'enables', note: 'BuilderNet provides the infrastructure for multi-party modular co-building.' },
   { from: 'A12', to: 'A8', type: 'complements', note: 'Dandelion++ provides a lightweight alternative to mixnets for privacy-preserving broadcast.' },
   { from: 'A13', to: 'A12', type: 'alternative', note: 'Wonderboom uses PVS and direct P2P to bypass the latency of gossip-based anonymity protocols like Dandelion++ for voting.' },
+  { from: 'A14', to: 'A8', type: 'alternative', note: 'LLARP/Lokinet provides network-layer onion routing as an alternative to application-layer mixnets like Sphinx.' },
+  { from: 'A14', to: 'A12', type: 'alternative', note: 'LLARP provides stronger cryptographic anonymity than Dandelion++, but with higher latency and bandwidth overhead.' },
+  { from: 'A15', to: 'A3', type: 'requires', note: 'ZK-Attestations use RLN nullifiers for DoS protection and equivocation slashing.' },
+  { from: 'A15', to: 'A1', type: 'complements', note: 'ZK-Attestations extend the ZK-PoV concept to the actual consensus signing path.' },
+  { from: 'A18', to: 'A17', type: 'enables', note: 'SSLE is the foundational primitive for Whisk.' },
+  { from: 'A20', to: 'A8', type: 'complements', note: 'Flow control is essential for preventing bufferbloat in multi-hop mixnets.' },
+  { from: 'A20', to: 'A14', type: 'complements', note: 'LLARP uses flow control to manage packet-switched anonymous traffic.' },
+  { from: 'A19', to: 'A14', type: 'complements', note: 'Karmic reputation systems can be used to incentivize Lokinet service nodes.' },
 ];

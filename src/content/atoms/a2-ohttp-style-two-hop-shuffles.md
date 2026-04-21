@@ -27,3 +27,4 @@ A multi-hop routing primitive inspired by Oblivious HTTP that separates identity
 
 - [RFC 9458: Oblivious HTTP](https://datatracker.ietf.org/doc/rfc9458/)
 - [Packetology: Validator Privacy (jrhea)](https://ethresear.ch/t/packetology-validator-privacy/7547)
+- [Anonymity, Unlinkability, Undetectability, and Unobservability: A Proposal for Terminology (v0.34)](https://www.maroki.de/pub/verschiedenes/2010_Anon_Terminology_v0.34.pdf)

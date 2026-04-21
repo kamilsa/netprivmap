@@ -27,3 +27,4 @@ A privacy-preserving routing protocol utilizing the Sphinx packet format to cons
 ## References
 
 - [PSE Roadmap: 2025 and Beyond](https://pse.dev/blog/pse-roadmap-2025)
+- [Anonymity, Unlinkability, Undetectability, and Unobservability: A Proposal for Terminology (v0.34)](https://www.maroki.de/pub/verschiedenes/2010_Anon_Terminology_v0.34.pdf)

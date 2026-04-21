@@ -27,3 +27,4 @@ Algorithmically generating dummy traffic to flatten network profiles and disrupt
 
 - [Privacy Problems in the P2P Network and What They Tell Us (Topic 20463)](https://ethresear.ch/t/privacy-problems-in-the-p2p-network-and-what-they-tell-us/20463)
 - [Gossipsub’s partial messages extension and cell-level dissemination (Topic 23017)](https://ethresear.ch/t/gossipsub-s-partial-messages-extension-and-cell-level-dissemination/23017)
+- [Anonymity, Unlinkability, Undetectability, and Unobservability: A Proposal for Terminology (v0.34)](https://www.maroki.de/pub/verschiedenes/2010_Anon_Terminology_v0.34.pdf)

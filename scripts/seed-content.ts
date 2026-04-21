@@ -73,6 +73,10 @@ if (!fs.existsSync(propDir)) fs.mkdirSync(propDir, { recursive: true });
 
 for (const prop of PROPERTIES) {
   const filename = `${slugify(prop.id)}-${slugify(prop.name)}.md`;
+  const refsSection = prop.refs && prop.refs.length > 0
+    ? `\n## References\n\n${prop.refs.map(r => `- ${r}`).join('\n')}\n`
+    : '';
+
   const content = `---
 id: ${prop.id}
 name: "${prop.name}"
@@ -85,7 +89,7 @@ ${prop.description}
 ## Evaluation
 
 _Evaluation criteria to be defined._
-`;
+${refsSection}`;
   fs.writeFileSync(path.join(propDir, filename), content);
 }
 
